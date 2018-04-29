@@ -1,7 +1,12 @@
 /*
  * Create a list that holds all of your cards
+ *
  */
+let cards = document.getElementsByClassName('card')
 
+let allCards = [...cards]
+
+let openCard = []
 
 /*
  * Display the cards on the page
@@ -10,21 +15,23 @@
  *   - add each card's HTML to the page
  */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+const deck = document.querySelector('.deck')
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+// this adds the clicked card to the array, only allowing 2 cards to be stored at once
+function showCard() {
+  this.className += 'show open'
+  openCard.push(this)
+  var length = openCard.length
+  if (length === 2) {
+    compareCards()
+  }
+};
 
-    return array;
+// this adds the event listener to all cards
+for (i = 0; i < allCards.length; i++) {
+  card = allCards[i]
+  card.addEventListener('click', showCard)
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:

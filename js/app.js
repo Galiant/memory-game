@@ -2,12 +2,44 @@
  * Create a list that holds all of your cards
  */
 let cards = document.getElementsByClassName('card');
-
 let allCards = [...cards];
-
 let openCard = [];
 
+let interval;
+let second = 0;
+let minute = 0;
+let timer = document.querySelector('.timer');
+let timeStart = false;
+
 const deck = document.querySelector(".deck");
+
+const movesCount = document.querySelector(".moves");
+let moves = 0;
+
+// const star = document.getElementById("star-rating").querySelectorAll(".star");
+// let starCount = 3;
+
+
+// Moves counter
+function movesCounter() {
+  // Update the html for the moves counter
+  movesCount.innerHTML++;
+  // Keep track of the number of moves for every pair checked
+  moves++;
+}
+
+// Star rating
+function starRating() {
+  if (moves === 10) {
+    // First element child is the <i> within the <li>
+    star[2].firstElementChild.classList.remove("fa-star");
+    starCount--;
+  }
+  if (moves === 16) {
+    star[1].firstElementChild.classList.remove("fa-star");
+    starCount--;
+  }
+}
 
 // Add the clicked card to the array, only allowing 2 cards to be stored at once
 function showCard() {
@@ -16,6 +48,7 @@ function showCard() {
   var length = openCard.length;
   if (length === 2) {
     compareCards();
+    movesCounter();
   }
 };
 
@@ -29,7 +62,7 @@ for (i = 0; i < allCards.length; i++) {
 function matchCard() {
   openCard[1].classList.add('match');
   openCard[0].classList.add('match');
-  if (openCard > 2) {
+  if (openCard === 2) {
     openCard = [];
   }
 }
@@ -93,10 +126,42 @@ function shuffleCards() {
   }
 };
 
+// Timer functionality
+
+function startTimer() {
+  interval = setInterval(function () {
+    timer.textContent = minute + "minutes " + second + "seconds";
+    second++;
+    if (second === 60) {
+      minute++;
+      second = 0;
+    }
+  }, 1000);
+};
+
+function stopTimer() {
+  minute = 0;
+  second = 0;
+  timer.textContent = minute + "minutes " + second + "seconds";
+  clearInterval(interval);
+}
+
+deck.addEventListener('click', function (event) {
+  if (!timeStart) {
+    startTimer();
+    timeStart = true;
+  }
+});
+
 // Restart cards in deck (game)
 const restart = document.querySelector('.restart');
-
-restart.addEventListener('click', shuffleCards);
+restart.addEventListener('click', function (event) {
+  stopTimer();
+  shuffleCards();
+  // Reset moves count and reset its inner HTML
+  moves = 0;
+  movesCount.innerHTML = 0;
+});
 
 // Shuffle cards in deck on window load
 window.addEventListener('load', shuffleCards());

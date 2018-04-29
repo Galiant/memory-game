@@ -93,5 +93,10 @@ function shuffleCards() {
   }
 };
 
+// Restart cards in deck (game)
+const restart = document.querySelector('.restart');
+
+restart.addEventListener('click', shuffleCards);
+
 // Shuffle cards in deck on window load
 window.addEventListener('load', shuffleCards());

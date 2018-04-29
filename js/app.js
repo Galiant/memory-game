@@ -16,8 +16,8 @@ const deck = document.querySelector(".deck");
 const movesCount = document.querySelector(".moves");
 let moves = 0;
 
-// const star = document.getElementById("star-rating").querySelectorAll(".star");
-// let starCount = 3;
+const star = document.getElementById("stars").querySelectorAll(".star");
+let starCount = 3;
 
 
 // Moves counter
@@ -49,6 +49,7 @@ function showCard() {
   if (length === 2) {
     compareCards();
     movesCounter();
+    starRating();
   }
 };
 
@@ -161,6 +162,10 @@ restart.addEventListener('click', function (event) {
   // Reset moves count and reset its inner HTML
   moves = 0;
   movesCount.innerHTML = 0;
+  // Reset star count and add the class back to show stars again
+  star[1].firstElementChild.classList.add("fa-star");
+  star[2].firstElementChild.classList.add("fa-star");
+  starCount = 3;
 });
 
 // Shuffle cards in deck on window load

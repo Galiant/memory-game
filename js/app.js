@@ -22,6 +22,7 @@ let starCount = 3;
 
 let modal = document.getElementById('myModal');
 let closeModal = document.getElementsByClassName('close')[0];
+let playAgain = document.querySelector(".playAgain");
 
 // Moves counter
 function movesCounter() {
@@ -154,13 +155,25 @@ deck.addEventListener('click', function (event) {
     startTimer();
     timeStart = true;
   }
+  if (matchedCards.length == 16) {
+    clearInterval(interval);
+    displayModal();
+  }
 });
 
 // Modal
 function displayModal() {
-  if (matchedCards.length == 16) {
-    modal.style.cssText = "display: block";
-    closeMyModal();
+  modal.style.display = "block";
+  closeMyModal();
+  document.getElementById('winner-message').innerHTML = "You win! You completed the game in " + moves + " moves and in " + minute + " minutes " + second + " seconds" + "!";
+  if (moves > 0 && moves <= 10) {
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star'><i class='fa fa-star'><i class='fa fa-star'>";
+  }
+  if (moves > 10 && moves < 17) {
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star'><i class='fa fa-star'>";
+  }
+  if (moves > 17) {
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star'>";
   }
 };
 
@@ -169,6 +182,23 @@ function closeMyModal() {
     modal.style.display = "none";
   });
 };
+
+playAgain.addEventListener('click', function (event) {
+  modal.style.display = "none";
+  // Reset timer
+  stopTimer();
+  timeStart = false;
+  seconds = 0;
+  minutes = 0;
+  shuffleCards();
+  // Reset moves count
+  moves = 0;
+  movesCount.innerHTML = 0;
+  // Reset star count and add the class back to show stars again
+  star[1].firstElementChild.classList.add("fa-star");
+  star[2].firstElementChild.classList.add("fa-star");
+  starCount = 3;
+});
 
 // Restart 
 const restart = document.querySelector('.restart');

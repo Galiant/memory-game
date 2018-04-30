@@ -1,9 +1,12 @@
 /*
  * Create a list that holds all of your cards
  */
-let cards = document.getElementsByClassName('card');
+let cards = document.getElementsByClassName("card");
 let allCards = [...cards];
 let openCard = [];
+let matchedCards = document.getElementsByClassName('match');
+
+const deck = document.querySelector(".deck");
 
 let interval;
 let second = 0;
@@ -11,14 +14,14 @@ let minute = 0;
 let timer = document.querySelector('.timer');
 let timeStart = false;
 
-const deck = document.querySelector(".deck");
-
 const movesCount = document.querySelector(".moves");
 let moves = 0;
 
 const star = document.getElementById("stars").querySelectorAll(".star");
 let starCount = 3;
 
+let modal = document.getElementById('myModal');
+let closeModal = document.getElementsByClassName('close')[0];
 
 // Moves counter
 function movesCounter() {
@@ -26,7 +29,7 @@ function movesCounter() {
   movesCount.innerHTML++;
   // Keep track of the number of moves for every pair checked
   moves++;
-}
+};
 
 // Star rating
 function starRating() {
@@ -39,7 +42,7 @@ function starRating() {
     star[1].firstElementChild.classList.remove("fa-star");
     starCount--;
   }
-}
+};
 
 // Add the clicked card to the array, only allowing 2 cards to be stored at once
 function showCard() {
@@ -57,7 +60,7 @@ function showCard() {
 for (i = 0; i < allCards.length; i++) {
   card = allCards[i];
   card.addEventListener('click', showCard);
-}
+};
 
 // Keep matched cards open
 function matchCard() {
@@ -66,7 +69,7 @@ function matchCard() {
   if (openCard === 2) {
     openCard = [];
   }
-}
+};
 
 // Add class to opened wrong card
 function wrongCard() {
@@ -128,7 +131,6 @@ function shuffleCards() {
 };
 
 // Timer functionality
-
 function startTimer() {
   interval = setInterval(function () {
     timer.textContent = minute + "minutes " + second + "seconds";
@@ -145,7 +147,7 @@ function stopTimer() {
   second = 0;
   timer.textContent = minute + "minutes " + second + "seconds";
   clearInterval(interval);
-}
+};
 
 deck.addEventListener('click', function (event) {
   if (!timeStart) {
@@ -154,12 +156,30 @@ deck.addEventListener('click', function (event) {
   }
 });
 
-// Restart cards in deck (game)
+// Modal
+function displayModal() {
+  if (matchedCards.length == 16) {
+    modal.style.cssText = "display: block";
+    closeMyModal();
+  }
+};
+
+function closeMyModal() {
+  closeModal.addEventListener("click", function () {
+    modal.style.display = "none";
+  });
+};
+
+// Restart 
 const restart = document.querySelector('.restart');
 restart.addEventListener('click', function (event) {
+  // Reset timer
   stopTimer();
+  timeStart = false;
+  seconds = 0;
+  minutes = 0;
   shuffleCards();
-  // Reset moves count and reset its inner HTML
+  // Reset moves count
   moves = 0;
   movesCount.innerHTML = 0;
   // Reset star count and add the class back to show stars again

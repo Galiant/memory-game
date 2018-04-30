@@ -70,6 +70,7 @@ h1 {
   transform: rotateY(0);
   background: #02b3e4;
   cursor: default;
+  /* pointer-events: none; */
 }
 
 .deck .card.show {
@@ -111,4 +112,91 @@ h1 {
 .score-panel .restart {
   float: right;
   cursor: pointer;
+}
+
+/* Modal styles */
+
+h2 {
+  font-size: 3em;
+  font-weight: 600;
+  padding-bottom: 0.5em;
+}
+
+p {
+  font-size: 1.6em;
+}
+
+.btn {
+  background: transparent;
+  padding: 9px 36px;
+  border: 2px solid #0f5f80;
+  color: #0f5f80;
+}
+
+.btn:hover {
+  background: #0f5f80;
+  padding: 9px 36px;
+  border: 2px solid #0f5f80;
+  color: #fff;
+  text-decoration: none;
+}
+
+.modal {
+  /*Hidden by default */
+  display: none;
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* Enable scroll if needed */
+  /* Fallback color */
+  background-color: rgb(46, 61, 73);
+  /* With opacity */
+  background-color: rgba(46, 61, 73, 0.6);
+}
+
+/* Modal Content/Box */
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #5cf;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Image*/
+
+p.stats {
+  font-weight: 600;
+}
+
+p.stats:last-child {
+  margin-bottom: 1em;
+}
+
+.play-again {
+  background: #28e;
+  margin-bottom: 1em;
 }

@@ -1,12 +1,12 @@
 /*
  * Create a list that holds all of your cards
  */
-let cards = document.getElementsByClassName("card");
+let cards = document.getElementsByClassName('card');
 let allCards = [...cards];
 let openCard = [];
 let matchedCards = document.getElementsByClassName('match');
 
-const deck = document.querySelector(".deck");
+const deck = document.querySelector('.deck');
 
 let interval;
 let second = 0;
@@ -14,119 +14,119 @@ let minute = 0;
 let timer = document.querySelector('.timer');
 let timeStart = false;
 
-const movesCount = document.querySelector(".moves");
+const movesCount = document.querySelector('.moves');
 let moves = 0;
 
-const star = document.getElementById("stars").querySelectorAll(".star");
+const star = document.getElementById('stars').querySelectorAll('.star');
 let starCount = 3;
 
 let modal = document.getElementById('myModal');
 let closeModal = document.getElementsByClassName('close')[0];
-let playAgain = document.querySelector(".playAgain");
+let playAgain = document.querySelector('.playAgain');
 
 // Moves counter
 function movesCounter() {
   // Update the html for the moves counter
-  movesCount.innerHTML++;
-  // Keep track of the number of moves for every pair checked
-  moves++;
+  movesCount.innerHTML++
+    // Keep track of the number of moves for every pair checked
+    moves++
 };
 
 // Star rating
 function starRating() {
   if (moves === 10) {
     // First element child is the <i> within the <li>
-    star[2].firstElementChild.classList.remove("fa-star");
-    starCount--;
+    star[2].firstElementChild.classList.remove('fa-star')
+    starCount--
   }
   if (moves === 16) {
-    star[1].firstElementChild.classList.remove("fa-star");
-    starCount--;
+    star[1].firstElementChild.classList.remove('fa-star')
+    starCount--
   }
 };
 
 // Add the clicked card to the array, only allowing 2 cards to be stored at once
 function showCard() {
-  this.className += ' show open';
-  openCard.push(this);
-  var length = openCard.length;
+  this.className += ' show open'
+  openCard.push(this)
+  var length = openCard.length
   if (length === 2) {
-    compareCards();
-    movesCounter();
-    starRating();
+    compareCards()
+    movesCounter()
+    starRating()
   }
 };
 
-// Add the event listener to all cards 
+// Add the event listener to all cards
 for (i = 0; i < allCards.length; i++) {
-  card = allCards[i];
-  card.addEventListener('click', showCard);
+  card = allCards[i]
+  card.addEventListener('click', showCard)
 };
 
 // Keep matched cards open
 function matchCard() {
-  openCard[1].classList.add('match');
-  openCard[0].classList.add('match');
+  openCard[1].classList.add('match')
+  openCard[0].classList.add('match')
   if (openCard === 2) {
-    openCard = [];
+    openCard = []
   }
 };
 
 // Add class to opened wrong card
 function wrongCard() {
   for (let n of openCard) {
-    n.classList.add('wrong');
+    n.classList.add('wrong')
   }
 };
 
 // Hide opened card if they don't match
 function hideCards() {
   for (let n of openCard) {
-    n.classList.remove('open', 'show', 'wrong');
+    n.classList.remove('open', 'show', 'wrong')
   }
 };
 
 // Compare open cards and do action on them
 function compareCards() {
   if (openCard[0].innerHTML === openCard[1].innerHTML) {
-    matchCard();
-    openCard = [];
+    matchCard()
+    openCard = []
   } else {
-    wrongCard();
+    wrongCard()
     setTimeout(function () {
-      hideCards();
-      openCard = [];
-    }, 700);
-  };
+      hideCards()
+      openCard = []
+    }, 700)
+  }
 };
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length,
-    temporaryValue, randomIndex;
+    temporaryValue, randomIndex
 
   while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
   }
 
-  return array;
+  return array
 };
 
 // Shuffle cards in deck and remove all classes from each card
 function shuffleCards() {
   for (var j = 0; j < cards.length; j++) {
-    cards[j].classList.remove("open", "show", "match");
+    cards[j].classList.remove('open', 'show', 'match')
   };
 
-  allCards = shuffle(allCards);
+  allCards = shuffle(allCards)
   for (var i = 0; i < allCards.length; i++) {
-    deck.innerHTML = "";
+    deck.innerHTML = ''
     for (const e of allCards) {
-      deck.appendChild(e);
+      deck.appendChild(e)
     }
   }
 };
@@ -134,88 +134,94 @@ function shuffleCards() {
 // Timer functionality
 function startTimer() {
   interval = setInterval(function () {
-    timer.textContent = minute + "minutes " + second + "seconds";
-    second++;
+    timer.textContent = minute + 'minutes ' + second + 'seconds'
+    second++
     if (second === 60) {
-      minute++;
-      second = 0;
+      minute++
+      second = 0
     }
-  }, 1000);
+  }, 1000)
 };
 
 function stopTimer() {
-  minute = 0;
-  second = 0;
-  timer.textContent = minute + "minutes " + second + "seconds";
-  clearInterval(interval);
+  minute = 0
+  second = 0
+  timer.textContent = minute + 'minutes ' + second + 'seconds'
+  clearInterval(interval)
 };
 
 deck.addEventListener('click', function (event) {
   if (!timeStart) {
-    startTimer();
-    timeStart = true;
+    startTimer()
+    timeStart = true
   }
+  // If all cards matched stop timer and display modal box
   if (matchedCards.length == 16) {
-    clearInterval(interval);
-    displayModal();
+    clearInterval(interval)
+    displayModal()
   }
 });
 
-// Modal
+// Modal box
 function displayModal() {
-  modal.style.display = "block";
-  closeMyModal();
-  document.getElementById('winner-message').innerHTML = "You win! You completed the game in " + moves + " moves and in " + minute + " minutes " + second + " seconds" + "!";
+  // Remove modal box
+  modal.style.display = 'block'
+  closeMyModal()
+  // Display message with number of moves and time needed to complete memory game
+  document.getElementById('winner-message').innerHTML = 'You win! You completed the game in ' + moves + ' moves and in ' + minute + ' minutes ' + second + ' seconds' + '!'
+  // Get stars based on moves
   if (moves > 0 && moves <= 10) {
-    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'>";
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'>"
   }
   if (moves > 10 && moves < 17) {
-    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'>";
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'>"
   }
   if (moves > 17) {
-    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'>";
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'>"
   }
 };
 
+// Close modal box
 function closeMyModal() {
-  closeModal.addEventListener("click", function () {
-    modal.style.display = "none";
-  });
+  closeModal.addEventListener('click', function () {
+    modal.style.display = 'none'
+  })
 };
 
+// Play again button in modal box
 playAgain.addEventListener('click', function (event) {
-  modal.style.display = "none";
+  modal.style.display = 'none'
   // Reset timer
-  stopTimer();
-  timeStart = false;
-  seconds = 0;
-  minutes = 0;
-  shuffleCards();
+  stopTimer()
+  timeStart = false
+  seconds = 0
+  minutes = 0
+  shuffleCards()
   // Reset moves count
-  moves = 0;
-  movesCount.innerHTML = 0;
+  moves = 0
+  movesCount.innerHTML = 0
   // Reset star count and add the class back to show stars again
-  star[1].firstElementChild.classList.add("fa-star");
-  star[2].firstElementChild.classList.add("fa-star");
-  starCount = 3;
+  star[1].firstElementChild.classList.add('fa-star')
+  star[2].firstElementChild.classList.add('fa-star')
+  starCount = 3
 });
 
-// Restart 
-const restart = document.querySelector('.restart');
+// Restart
+const restart = document.querySelector('.restart')
 restart.addEventListener('click', function (event) {
   // Reset timer
-  stopTimer();
-  timeStart = false;
-  seconds = 0;
-  minutes = 0;
-  shuffleCards();
+  stopTimer()
+  timeStart = false
+  seconds = 0
+  minutes = 0
+  shuffleCards()
   // Reset moves count
-  moves = 0;
-  movesCount.innerHTML = 0;
+  moves = 0
+  movesCount.innerHTML = 0
   // Reset star count and add the class back to show stars again
-  star[1].firstElementChild.classList.add("fa-star");
-  star[2].firstElementChild.classList.add("fa-star");
-  starCount = 3;
+  star[1].firstElementChild.classList.add('fa-star')
+  star[2].firstElementChild.classList.add('fa-star')
+  starCount = 3
 });
 
 // Shuffle cards in deck on window load

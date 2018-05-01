@@ -40,7 +40,7 @@ h1 {
 
 .deck {
   width: 660px;
-  min-height: 680px;
+  height: 680px;
   background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
   padding: 32px;
   border-radius: 10px;
@@ -70,7 +70,7 @@ h1 {
   transform: rotateY(0);
   background: #02b3e4;
   cursor: default;
-  /* pointer-events: none; */
+  pointer-events: none;
 }
 
 .deck .card.show {
@@ -126,19 +126,22 @@ p {
   font-size: 1.6em;
 }
 
-.btn {
+.playAgain {
   background: transparent;
   padding: 9px 36px;
   border: 2px solid #0f5f80;
   color: #0f5f80;
+  font-size: 1.6em;
+  margin-top: 20px;
 }
 
-.btn:hover {
+.playAgain:hover {
   background: #0f5f80;
   padding: 9px 36px;
   border: 2px solid #0f5f80;
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .modal {
@@ -170,12 +173,18 @@ p {
   /* Could be more or less, depending on screen size */
 }
 
+.content {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 /* The Close Button */
 
 .close {
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 42px;
   font-weight: bold;
 }
 
@@ -186,17 +195,24 @@ p {
   cursor: pointer;
 }
 
-/* Modal Image*/
+/* Mobile */
 
-p.stats {
-  font-weight: 600;
+@media screen and (max-width: 650px) {
+  .deck {
+    width: 80%;
+    height: 90vh;
+  }
+  .deck .card {
+    width: 23%;
+    height: 18vh;
+  }
+  h2 {
+    font-size: 2em;
+  }
 }
 
-p.stats:last-child {
-  margin-bottom: 1em;
-}
-
-.play-again {
-  background: #28e;
-  margin-bottom: 1em;
+@media screen and (max-width: 420px) {
+  .score-panel {
+    width: 300px;
+  }
 }

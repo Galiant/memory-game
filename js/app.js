@@ -167,13 +167,13 @@ function displayModal() {
   closeMyModal();
   document.getElementById('winner-message').innerHTML = "You win! You completed the game in " + moves + " moves and in " + minute + " minutes " + second + " seconds" + "!";
   if (moves > 0 && moves <= 10) {
-    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star'><i class='fa fa-star'><i class='fa fa-star'>";
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'>";
   }
   if (moves > 10 && moves < 17) {
-    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star'><i class='fa fa-star'>";
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'><i class='fa fa-star fa-2x'>";
   }
   if (moves > 17) {
-    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star'>";
+    document.getElementById('star-rating-message').innerHTML = "<i class='fa fa-star fa-2x'>";
   }
 };
 
